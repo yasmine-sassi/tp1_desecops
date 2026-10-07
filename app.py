@@ -1,8 +1,37 @@
+import ast
+import operator
+import os
 import sqlite3
 
 from flask import Flask, jsonify, request, abort
 
 app = Flask(__name__)
+
+_ALLOWED_OPERATORS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+    ast.USub: operator.neg,
+}
+
+
+def safe_eval_arithmetic(expression):
+    """Evaluate a simple numeric expression (+ - * /) without executing arbitrary code."""
+
+    def _eval(node):
+        if isinstance(node, ast.Expression):
+            return _eval(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in _ALLOWED_OPERATORS:
+            return _ALLOWED_OPERATORS[type(node.op)](_eval(node.left), _eval(node.right))
+        if isinstance(node, ast.UnaryOp) and type(node.op) in _ALLOWED_OPERATORS:
+            return _ALLOWED_OPERATORS[type(node.op)](_eval(node.operand))
+        raise ValueError("Expression non autorisee")
+
+    parsed = ast.parse(expression, mode="eval")
+    return _eval(parsed)
 
 tasks = [
     {"id": 1, "title": "Apprendre Flask", "done": False},
@@ -39,8 +68,10 @@ def get_task(task_id):
 @app.route("/tasks/search", methods=["GET"])
 def search_tasks():
     title = request.args.get("title", "")
-    query = "SELECT id, title, done FROM tasks WHERE title LIKE '%%%s%%'" % title
-    cursor = db.execute(query)
+    cursor = db.execute(
+        "SELECT id, title, done FROM tasks WHERE title LIKE ?",
+        (f"%{title}%",),
+    )
     rows = cursor.fetchall()
     return jsonify([{"id": r[0], "title": r[1], "done": bool(r[2])} for r in rows])
 
@@ -49,7 +80,10 @@ def search_tasks():
 def score_task():
     data = request.get_json(silent=True) or {}
     formula = data.get("formula", "0")
-    score = eval(formula)
+    try:
+        score = safe_eval_arithmetic(formula)
+    except (ValueError, SyntaxError, TypeError, ZeroDivisionError):
+        abort(400, description="Formule invalide : seules les expressions arithmetiques (+ - * /) sont autorisees")
     return jsonify({"score": score})
 
 
@@ -89,4 +123,5 @@ def delete_task(task_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    debug_mode = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
+    app.run(debug=debug_mode)
