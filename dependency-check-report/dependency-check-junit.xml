@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites failures="0" name="dependency-check" tests="3">
+        <testsuite failures="0" errors="0" time="0" id="0" name="/src/requirements.txt:Flask/2.0.1" package="Flask:2.0.1" skipped="0" tests="1" timestamp="2026-10-07T21:33:21.889974137">
+            <testcase classname="dependency-check" name="Flask:2.0.1"/>
+    </testsuite>
+        <testsuite failures="0" errors="0" time="0" id="1" name="/src/requirements.txt:Werkzeug/2.0.3" package="Werkzeug:2.0.3" skipped="0" tests="1" timestamp="2026-10-07T21:33:21.889974137">
+            <testcase classname="dependency-check" name="Werkzeug:2.0.3"/>
+    </testsuite>
+        <testsuite failures="0" errors="0" time="0" id="2" name="/src/requirements.txt:requests/2.25.1" package="requests:2.25.1" skipped="0" tests="1" timestamp="2026-10-07T21:33:21.889974137">
+            <testcase classname="dependency-check" name="requests:2.25.1"/>
+    </testsuite>
+</testsuites>

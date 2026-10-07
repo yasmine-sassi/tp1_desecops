@@ -1,0 +1,145 @@
+{
+    "reportSchema": "1.1",
+    "scanInfo": {
+        "engineVersion": "13.0.0",
+        "dataSource": [
+{
+                "name": "NVD API Last Checked",
+                "timestamp": "2026-10-07T21:31:39Z"
+            }
+,{
+                "name": "NVD API Last Modified",
+                "timestamp": "2026-10-07T21:17:23Z"
+            }
+        ]
+
+
+    },
+    "projectInfo": {
+        "name": "TP_DevSecOps",
+        "reportDate": "2026-10-07T21:33:21.889974137Z",
+        "credits": {
+            "NVD": "This product uses the NVD API but is not endorsed or certified by the NVD. This report contains data retrieved from the National Vulnerability Database: https://nvd.nist.gov",
+            "CISA": "This report may contain data retrieved from the CISA Known Exploited Vulnerability Catalog: https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+            "NPM": "This report may contain data retrieved from the Github Advisory Database (via NPM Audit API): https://github.com/advisories/",
+            "RETIREJS": "This report may contain data retrieved from the RetireJS community: https://retirejs.github.io/retire.js/",
+            "OSSINDEX": "This report may contain data retrieved from the Sonatype Guide OSS Index API: https://www.sonatype.com/products/sonatype-guide/oss-index-users"
+        }
+    },
+    "dependencies": [
+{
+            "isVirtual": true,
+            "fileName": "Flask:2.0.1",
+            "filePath": "\/src\/requirements.txt:Flask\/2.0.1"
+            ,"evidenceCollected": {
+                "vendorEvidence": [
+{
+                            "type": "vendor",
+                            "confidence": "HIGHEST",
+                            "source": "requirements.txt",
+                            "name": "vendor",
+                            "value": "Flask"
+                        }
+                ],
+                "productEvidence": [
+{
+                            "type": "product",
+                            "confidence": "HIGHEST",
+                            "source": "requirements.txt",
+                            "name": "product",
+                            "value": "Flask"
+                    }
+                ],
+                "versionEvidence": [
+                    {
+                        "type": "version",
+                        "confidence": "HIGHEST",
+                        "source": "requirements.txt",
+                        "name": "version",
+                        "value": "2.0.1"
+                    }
+                ]
+            }
+                ,"packages": [
+                    {
+                        "id": "pkg:pypi\/flask@2.0.1"
+,"confidence": "HIGHEST"                    }
+            ]
+        },{
+            "isVirtual": true,
+            "fileName": "Werkzeug:2.0.3",
+            "filePath": "\/src\/requirements.txt:Werkzeug\/2.0.3"
+            ,"evidenceCollected": {
+                "vendorEvidence": [
+{
+                            "type": "vendor",
+                            "confidence": "HIGHEST",
+                            "source": "requirements.txt",
+                            "name": "vendor",
+                            "value": "Werkzeug"
+                        }
+                ],
+                "productEvidence": [
+{
+                            "type": "product",
+                            "confidence": "HIGHEST",
+                            "source": "requirements.txt",
+                            "name": "product",
+                            "value": "Werkzeug"
+                    }
+                ],
+                "versionEvidence": [
+                    {
+                        "type": "version",
+                        "confidence": "HIGHEST",
+                        "source": "requirements.txt",
+                        "name": "version",
+                        "value": "2.0.3"
+                    }
+                ]
+            }
+                ,"packages": [
+                    {
+                        "id": "pkg:pypi\/werkzeug@2.0.3"
+,"confidence": "HIGHEST"                    }
+            ]
+        },{
+            "isVirtual": true,
+            "fileName": "requests:2.25.1",
+            "filePath": "\/src\/requirements.txt:requests\/2.25.1"
+            ,"evidenceCollected": {
+                "vendorEvidence": [
+{
+                            "type": "vendor",
+                            "confidence": "HIGHEST",
+                            "source": "requirements.txt",
+                            "name": "vendor",
+                            "value": "requests"
+                        }
+                ],
+                "productEvidence": [
+{
+                            "type": "product",
+                            "confidence": "HIGHEST",
+                            "source": "requirements.txt",
+                            "name": "product",
+                            "value": "requests"
+                    }
+                ],
+                "versionEvidence": [
+                    {
+                        "type": "version",
+                        "confidence": "HIGHEST",
+                        "source": "requirements.txt",
+                        "name": "version",
+                        "value": "2.25.1"
+                    }
+                ]
+            }
+                ,"packages": [
+                    {
+                        "id": "pkg:pypi\/requests@2.25.1"
+,"confidence": "HIGHEST"                    }
+            ]
+        }    ]
+}
