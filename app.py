@@ -1,3 +1,5 @@
+import sqlite3
+
 from flask import Flask, jsonify, request, abort
 
 app = Flask(__name__)
@@ -10,6 +12,11 @@ tasks = [
     {"id": 5, "title": "Lancer un scan SAST", "done": False},
     {"id": 6, "title": "Lancer un scan SCA sur les dependances", "done": False},
 ]
+
+db = sqlite3.connect(":memory:", check_same_thread=False)
+db.execute("CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, done INTEGER)")
+db.executemany("INSERT INTO tasks VALUES (?, ?, ?)", [(t["id"], t["title"], int(t["done"])) for t in tasks])
+db.commit()
 
 
 def find_task(task_id):
@@ -27,6 +34,23 @@ def get_task(task_id):
     if task is None:
         abort(404)
     return jsonify(task)
+
+
+@app.route("/tasks/search", methods=["GET"])
+def search_tasks():
+    title = request.args.get("title", "")
+    query = "SELECT id, title, done FROM tasks WHERE title LIKE '%%%s%%'" % title
+    cursor = db.execute(query)
+    rows = cursor.fetchall()
+    return jsonify([{"id": r[0], "title": r[1], "done": bool(r[2])} for r in rows])
+
+
+@app.route("/tasks/score", methods=["POST"])
+def score_task():
+    data = request.get_json(silent=True) or {}
+    formula = data.get("formula", "0")
+    score = eval(formula)
+    return jsonify({"score": score})
 
 
 @app.route("/tasks", methods=["POST"])
